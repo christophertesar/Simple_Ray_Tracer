@@ -1,7 +1,9 @@
 #ifndef HITTABLE_HPP
 #define HITTABLE_HPP
 
-#include "misc.hpp"
+#include <iostream>
+#include "ray.hpp"
+#include "vec3.hpp"
 
 struct hit_record {
     point3 p;

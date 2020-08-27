@@ -3,6 +3,7 @@
 #include "camera.hpp"
 #include "ray.hpp"
 #include "hittable_list.hpp"
+#include "sphere.hpp"
 
 int main(){
 
@@ -10,9 +11,9 @@ int main(){
 
 const int i_width = 1600; //Picture width and height
 const int i_height = 900;
-const double focal_length = 1.0;
+const double focal_length = 0.5;
 
-const double aspect_ratio = static_cast<double>(i_width)/static_cast<double>(i_height);
+const double aspect_ratio = static_cast<double>(i_height)/static_cast<double>(i_width);
 const double viewport_width = 2.0;
 const double viewport_height = aspect_ratio*viewport_width;
 
@@ -26,6 +27,11 @@ assert(!file.fail());
 
 initiate_write(file,i_width,i_height);
 
+//Generate Objects
+hittable_list world;
+world.object_list.push_back(std::make_shared<sphere>(point3(0,0,-1), 0.5));
+world.object_list.push_back(std::make_shared<sphere>(point3(0,-100.5,-1), 100));
+
 //Render Engine
 
 auto start = std::chrono::high_resolution_clock::now();
@@ -36,7 +42,7 @@ for (int j = i_height - 1; j >= 0; j--){  //Vertical Pixels; Top to bottom
         auto h = double(i) / (i_width-1);
         auto v = double(j) / (i_height-1);
         ray r =  cam.get_ray(h,v);
-        color pixel_color = ray_color(r);
+        color pixel_color = ray_color(r, world);
          
         write_color(file, pixel_color);
     }
@@ -46,6 +52,7 @@ for (int j = i_height - 1; j >= 0; j--){  //Vertical Pixels; Top to bottom
 file.close();
 
 //Timer
+
 auto finish = std::chrono::high_resolution_clock::now();
 std::chrono::duration<double> elapsed = finish - start;
 std::cout << "\nRender time: " << elapsed.count() << " s\n";
