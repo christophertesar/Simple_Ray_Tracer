@@ -8,7 +8,7 @@
 class camera{
     public:
         camera();
-        camera(int width,int height,double focal_length);
+        camera(double width,double height,double focal_length);
 
         ray get_ray(double, double);
 

@@ -1,9 +1,9 @@
 #include "misc.hpp"
 
 void write_color(std::ofstream &file, color pixel_color){
-    file << static_cast<int>(255.00 * pixel_color.get_x()) << ' '
-         << static_cast<int>(255.00 * pixel_color.get_y()) << ' '
-         << static_cast<int>(255.00 * pixel_color.get_z()) << '\n';
+    file << static_cast<int>(255.99 * pixel_color.get_x()) << ' '
+         << static_cast<int>(255.99 * pixel_color.get_y()) << ' '
+         << static_cast<int>(255.99 * pixel_color.get_z()) << '\n';
 }
 
 void initiate_write(std::ofstream& file,const int width,const int height){

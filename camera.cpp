@@ -7,7 +7,7 @@ camera::camera(){
     bottom_left_corner = -horizontal/2 - vertical/2 - vec3(0.0, 0.0, 1.0) + origin;
 }
 
-camera::camera(int width,int height,double focal_length){
+camera::camera(double width,double height,double focal_length){
     
     origin = point3(0.0, 0.0, 0.0);
     horizontal = vec3(static_cast<double>(width), 0.0, 0.0);

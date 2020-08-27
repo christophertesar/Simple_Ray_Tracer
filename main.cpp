@@ -9,13 +9,13 @@ int main(){
 
 //Image Parameters
 
-const int i_width = 1600; //Picture width and height
-const int i_height = 900;
-const double focal_length = 0.5;
+const double i_width = 1600; //Picture width and height
+const double i_height = 900;
+const double focal_length = 1.0;
 
-const double aspect_ratio = static_cast<double>(i_height)/static_cast<double>(i_width);
-const double viewport_width = 2.0;
-const double viewport_height = aspect_ratio*viewport_width;
+const double aspect_ratio = (i_width)/(i_height);
+const double viewport_height = 2.0;
+const double viewport_width = aspect_ratio*viewport_height;
 
 
 

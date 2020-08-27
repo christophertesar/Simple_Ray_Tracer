@@ -28,7 +28,7 @@ bool sphere::hit(const ray& r, double tmin, double tmax, hit_record& rec) const{
                 return true; //Sphere hit
             }
 
-            quad = (-b + root) / 2*a;
+            quad = (-b + root) / (2*a);
             if (quad < tmax && quad > tmin) {
                 rec.t = quad;
                 rec.p = r.at(quad);
