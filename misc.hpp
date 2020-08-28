@@ -11,9 +11,9 @@
 #include <cstdlib>
 #include <random>
 
-#include "vec3.hpp"
 #include "ray.hpp"
 #include "hittable.hpp"
+#include "vec3.hpp"
 
 //Const
 
@@ -22,16 +22,18 @@ const double pi = 3.1415926535897932385;
 
 //Functions
 
+vec3 random_in_unit_sphere();
+
 void write_color(std::ofstream&, color);
 
 void initiate_write(std::ofstream&,const int width,const int height);
 
-color ray_color(ray&, hittable&);
+color ray_color(ray&, hittable&, int);
 
 inline double degrees_to_radians(double degrees) {
     return degrees * pi / 180.0;
 }
-
+/*
 inline double random_double(){
     static std::uniform_real_distribution<double> distribution(0.0, 1.0);
     static std::mt19937 generator;
@@ -41,7 +43,7 @@ inline double random_double(){
 inline double random_double(double min, double max){
     return min + (max-min)*random_double();
 }
-
+*/
 inline double clamp(double x, double min, double max){
     if(x < min){
         return min;
@@ -53,5 +55,7 @@ inline double clamp(double x, double min, double max){
 }
 
 void write_color_clamp(std::ofstream&, color, int);
+
+
 
 #endif

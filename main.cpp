@@ -4,6 +4,7 @@
 #include "ray.hpp"
 #include "hittable_list.hpp"
 #include "sphere.hpp"
+#include "vec3.hpp"
 
 int main(){
 
@@ -13,6 +14,7 @@ const double i_width = 1600; //Picture width and height
 const double i_height = 900;
 const double focal_length = 1.0;
 const int samples_per_pixel = 50; //Anti-Aliasing samples
+const int max_depth = 50;
 
 const double aspect_ratio = (i_width)/(i_height);
 const double viewport_height = 2.0;
@@ -36,6 +38,8 @@ world.object_list.push_back(std::make_shared<sphere>(point3(0,-100.5,-1), 100));
 
 //Render Engine
 
+std::cout << "Starting Render" << std::endl;
+
 auto start = std::chrono::high_resolution_clock::now();
 
 for (int j = i_height - 1; j >= 0; j--){  //Vertical Pixels; Top to bottom
@@ -46,7 +50,7 @@ for (int j = i_height - 1; j >= 0; j--){  //Vertical Pixels; Top to bottom
             auto h = (double(i) + random_double())  / (i_width-1);
             auto v = (double(j) + random_double()) / (i_height-1);
             ray r = cam.get_ray(h,v);
-            pixel_color += ray_color(r, world);
+            pixel_color += ray_color(r, world, max_depth);
         }
         write_color_clamp(file, pixel_color, samples_per_pixel);
     }

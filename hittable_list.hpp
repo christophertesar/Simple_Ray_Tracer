@@ -3,6 +3,8 @@
 
 #include "hittable.hpp"
 #include "misc.hpp"
+#include "vec3.hpp"
+
 #include <memory>
 #include <vector>
 
@@ -18,7 +20,7 @@ class hittable_list : public hittable{
     public:
 
         std::vector<std::shared_ptr<hittable>> object_list;
-        
+
     private:
         
 };

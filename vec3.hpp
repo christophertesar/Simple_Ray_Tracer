@@ -1,9 +1,10 @@
-#ifndef VEC3_H
-#define VEC3_H
+#ifndef VEC3_HPP
+#define VEC3_HPP
 
 #include <cmath>
 #include <iostream>
 #include <fstream>
+#include <random>
 
 
 class vec3{
@@ -75,6 +76,7 @@ class vec3{
         friend inline vec3 unit_vector(vec3 v) {
             return v / v.length();
         }
+        
 
         //Vector Operations
 
@@ -84,10 +86,30 @@ class vec3{
 
         friend inline vec3 unit_vector(vec3 v);
 
+
     private:
         double x,y,z; //3D coodinates
 
 };
+
+inline double random_double(){
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
+
+inline double random_double(double min, double max){
+    return min + (max-min)*random_double();
+}
+
+inline vec3 random(){
+    return vec3(random_double(), random_double(), random_double());
+}    
+
+inline vec3 random(double min, double max){
+    return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+}
+
 
 using point3 = vec3;
 using color = vec3;
