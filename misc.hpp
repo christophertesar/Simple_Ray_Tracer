@@ -8,6 +8,9 @@
 #include <chrono>
 #include <cassert>
 #include <limits>
+#include <cstdlib>
+#include <random>
+
 #include "vec3.hpp"
 #include "ray.hpp"
 #include "hittable.hpp"
@@ -28,5 +31,27 @@ color ray_color(ray&, hittable&);
 inline double degrees_to_radians(double degrees) {
     return degrees * pi / 180.0;
 }
+
+inline double random_double(){
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
+
+inline double random_double(double min, double max){
+    return min + (max-min)*random_double();
+}
+
+inline double clamp(double x, double min, double max){
+    if(x < min){
+        return min;
+    }
+    if(x > max){
+        return max;
+    }
+    return x;
+}
+
+void write_color_clamp(std::ofstream&, color, int);
 
 #endif

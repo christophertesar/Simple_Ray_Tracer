@@ -12,6 +12,7 @@ int main(){
 const double i_width = 1600; //Picture width and height
 const double i_height = 900;
 const double focal_length = 1.0;
+const int samples_per_pixel = 50; //Anti-Aliasing samples
 
 const double aspect_ratio = (i_width)/(i_height);
 const double viewport_height = 2.0;
@@ -28,6 +29,7 @@ assert(!file.fail());
 initiate_write(file,i_width,i_height);
 
 //Generate Objects
+
 hittable_list world;
 world.object_list.push_back(std::make_shared<sphere>(point3(0,0,-1), 0.5));
 world.object_list.push_back(std::make_shared<sphere>(point3(0,-100.5,-1), 100));
@@ -38,15 +40,16 @@ auto start = std::chrono::high_resolution_clock::now();
 
 for (int j = i_height - 1; j >= 0; j--){  //Vertical Pixels; Top to bottom
     std::cerr << "\rLines Remaining: " << j << std::flush; //Number of lines left
-    for(int i = 0; i < i_width; i++){ //Horizontal Pixels; Left to right
-        auto h = double(i) / (i_width-1);
-        auto v = double(j) / (i_height-1);
-        ray r =  cam.get_ray(h,v);
-        color pixel_color = ray_color(r, world);
-         
-        write_color(file, pixel_color);
+    for(int i = 0; i < i_width; i++){ //Horizontal Pixels; Left to 
+        color pixel_color(0,0,0);
+        for(int s = 0; s < samples_per_pixel; s++){
+            auto h = (double(i) + random_double())  / (i_width-1);
+            auto v = (double(j) + random_double()) / (i_height-1);
+            ray r = cam.get_ray(h,v);
+            pixel_color += ray_color(r, world);
+        }
+        write_color_clamp(file, pixel_color, samples_per_pixel);
     }
-
 }
 
 file.close();

@@ -20,3 +20,20 @@ color ray_color(ray &v, hittable &world){ //Child classes of hittable are passab
     auto t = 0.5*(unit_direction.get_y() + 1.0);
     return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
 }
+
+void write_color_clamp(std::ofstream &file, color pixel_color, int samples_per_pixel){
+    
+    auto r = pixel_color.get_x();
+    auto g = pixel_color.get_y();
+    auto b = pixel_color.get_z();
+
+    auto scale = 1.0 / samples_per_pixel;
+    
+    r *= scale;
+    g *= scale;
+    b *= scale;
+
+    file << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
+         << static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
+         << static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
+}
