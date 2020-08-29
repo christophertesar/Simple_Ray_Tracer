@@ -5,6 +5,7 @@
 #include "hittable_list.hpp"
 #include "sphere.hpp"
 #include "vec3.hpp"
+#include "material.hpp"
 
 int main(){
 
@@ -31,10 +32,17 @@ assert(!file.fail());
 initiate_write(file,i_width,i_height);
 
 //Generate Objects
-
 hittable_list world;
-world.object_list.push_back(std::make_shared<sphere>(point3(0,0,-1), 0.5));
-world.object_list.push_back(std::make_shared<sphere>(point3(0,-100.5,-1), 100));
+
+auto material_ground = std::make_shared<lambertian>(color(0.8,0.8,0.0));
+auto material_center = std::make_shared<lambertian>(color(0.7,0.3,0.3));
+auto material_left = std::make_shared<metal>(color(0.8,0.8,0.8));
+auto material_right = std::make_shared<metal>(color(0.8,0.6,0.2));
+
+world.object_list.push_back(std::make_shared<sphere>(point3( 0.0, -100.5, -1.0), 100.0, material_ground));
+world.object_list.push_back(std::make_shared<sphere>(point3( 0.0,    0.0, -1.0),   0.5, material_center));
+world.object_list.push_back(std::make_shared<sphere>(point3(-1.0,    0.0, -1.0),   0.5, material_left));
+world.object_list.push_back(std::make_shared<sphere>(point3( 1.0,    0.0, -1.0),   0.5, material_right));
 
 //Render Engine
 

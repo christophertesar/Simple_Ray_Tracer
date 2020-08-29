@@ -1,5 +1,9 @@
 #include "ray.hpp"
 
+ray::ray(){
+    
+}
+
 point3 ray::get_origin() const{
     return origin;
 }

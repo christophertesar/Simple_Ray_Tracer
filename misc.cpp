@@ -6,8 +6,6 @@ void write_color(std::ofstream &file, color pixel_color){
          << static_cast<int>(255.99 * pixel_color.get_z()) << '\n';
 }
 
-
-
 void initiate_write(std::ofstream& file,const int width,const int height){
     file << "P3\n" << width << ' ' << height << '\n' << "255\n";
 }
@@ -26,10 +24,13 @@ color ray_color(ray &v, hittable &world, int depth){ //Child classes of hittable
     if(depth <= 0)
         return color(0,0,0);
 
-    if (world.hit(v, 0, infinity, rec)){
-        point3 target = rec.p + rec.normal + random_in_unit_sphere();
-        ray temp(rec.p, target - rec.p);
-        return 0.5 * ray_color(temp, world, depth-1); //Return normal vector color.
+    if (world.hit(v, 0.001, infinity, rec)){
+        ray scattered; 
+        color attenuation;
+        if(rec.mat_ptr->scatter(v,rec,attenuation,scattered)){   //Check if scattered vector is valid for particular material.
+            return attenuation * ray_color(scattered,world,depth-1); //return 
+        }
+        return color(0,0,0);
     }
 
     vec3 unit_direction = unit_vector(v.get_direction());

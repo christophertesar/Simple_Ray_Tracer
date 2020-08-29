@@ -92,6 +92,8 @@ class vec3{
 
 };
 
+const double pivec = 3.1415926535897932385;
+
 inline double random_double(){
     static std::uniform_real_distribution<double> distribution(0.0, 1.0);
     static std::mt19937 generator;
@@ -109,6 +111,10 @@ inline vec3 random(){
 inline vec3 random(double min, double max){
     return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
 }
+
+vec3 random_unit_vector();
+
+vec3 reflect(vec3&, vec3&);
 
 
 using point3 = vec3;

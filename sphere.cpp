@@ -4,8 +4,7 @@ sphere::sphere(){
 
 }
 
-sphere::sphere(point3 cen, double rad) : radius(rad), center(cen){
-
+sphere::sphere(point3 cen, double rad, std::shared_ptr<material> m) : radius(rad), center(cen), mat_ptr(m){
 }
 
 bool sphere::hit(const ray& r, double tmin, double tmax, hit_record& rec) const{
@@ -25,6 +24,7 @@ bool sphere::hit(const ray& r, double tmin, double tmax, hit_record& rec) const{
                 rec.p = r.at(quad);     //record point of intersection
                 vec3 outward_normal = (rec.p - center) / radius;
                 rec.set_face_normal(r, outward_normal); //record unit normal vector with normal always facing outwards.
+                rec.mat_ptr = mat_ptr;
                 return true; //Sphere hit
             }
 
@@ -34,6 +34,7 @@ bool sphere::hit(const ray& r, double tmin, double tmax, hit_record& rec) const{
                 rec.p = r.at(quad);
                 vec3 outward_normal = (rec.p - center) / radius;
                 rec.set_face_normal(r, outward_normal);
+                rec.mat_ptr = mat_ptr;
                 return true; //Sphere hit opposite side
         }
     }

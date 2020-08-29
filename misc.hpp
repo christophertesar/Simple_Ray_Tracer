@@ -12,8 +12,9 @@
 #include <random>
 
 #include "ray.hpp"
-#include "hittable.hpp"
 #include "vec3.hpp"
+#include "hittable.hpp"
+#include "material.hpp"
 
 //Const
 

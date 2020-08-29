@@ -9,13 +9,14 @@
 class sphere : public hittable{
     public:
         sphere();
-        sphere(point3, double);
+        sphere(point3, double, std::shared_ptr<material>);
 
         virtual bool hit(const ray&, double tmin, double tmax, hit_record&) const override;
 
     private:
         point3 center;
         double radius;
+        std::shared_ptr<material> mat_ptr;
 
 
 
