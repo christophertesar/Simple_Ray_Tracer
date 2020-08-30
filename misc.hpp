@@ -57,6 +57,6 @@ inline double clamp(double x, double min, double max){
 
 void write_color_clamp(std::ofstream&, color, int);
 
-
+double schlick(double cosine, double ref_idx);
 
 #endif

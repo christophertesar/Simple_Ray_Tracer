@@ -54,3 +54,9 @@ void write_color_clamp(std::ofstream &file, color pixel_color, int samples_per_p
          << static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
          << static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
 }
+
+double schlick(double cosine, double ref_idx){
+    auto r0 = (1-ref_idx) / (1+ref_idx);
+    r0 = r0*r0;
+    return r0 + (1-r0)*std::pow((1 - cosine),5);
+}

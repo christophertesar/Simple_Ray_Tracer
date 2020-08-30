@@ -116,6 +116,8 @@ vec3 random_unit_vector();
 
 vec3 reflect(vec3&, vec3&);
 
+vec3 refract(vec3&, vec3&, double);
+
 
 using point3 = vec3;
 using color = vec3;
